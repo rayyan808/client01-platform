@@ -1,2 +1,13 @@
-# client01-platform
-Full Stack Web Application [Live Chat, Google Map Integration, R/W DB]
+First, npm install
+
+Second, to run the file node index.js
+
+# VVEsustainability
+
+Web page for helping VVE's save money making sustainable decisions. 
+
+First,
+npm install
+
+Second, to run the file 
+node index.js
