@@ -72,9 +72,9 @@ items:
             value: "5000"
           - name: WAIT_HOSTS
             value: mongodb:27017
-          image: app
+          image: rayyan808/vve-application
           imagePullPolicy: ""
-          name: node-app-container
+          name: app-container
           ports:
           - containerPort: 8000
           resources: {}
@@ -135,22 +135,22 @@ items:
           resources: {}
           volumeMounts:
           - mountPath: /data/database
-            name: appDB
+            name: app-database
         hostname: mongodb
         restartPolicy: Always
         serviceAccountName: ""
         volumes:
-        - name: appDB
+        - name: app-database
           persistentVolumeClaim:
-            claimName: appDB
+            claimName: app-database
   status: {}
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
     creationTimestamp: null
     labels:
-      io.kompose.service: appDB
-    name: appDB
+      io.kompose.service: app-database
+    name: app-database
   spec:
     accessModes:
     - ReadWriteOnce
