@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/back-end-network: "true"
+        io.kompose.service: app
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_NAME
+          value: mongodb
+        - name: WAIT_BEFORE_HOSTS
+          value: "5000"
+        - name: WAIT_HOSTS
+          value: mongodb:27017
+        image: app
+        imagePullPolicy: ""
+        name: node-app-container
+        ports:
+        - containerPort: 8000
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
