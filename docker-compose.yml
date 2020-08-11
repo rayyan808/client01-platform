@@ -1,0 +1,36 @@
+version: '3'
+services:
+    app:
+        container_name: node_app_container
+        build: .
+        restart: always
+        environment: 
+            - DATABASE_NAME=mongodb
+            - WAIT_HOSTS=mongodb:27017 #App will wait for mongodb to launch in a healthy state
+            - WAIT_BEFORE_HOSTS=5000
+        ports:
+            - "8000:8000"
+        depends_on: #Require database ini before node runs
+            - mongodb
+        
+        networks:
+            - back-end-network
+
+    mongodb:
+        hostname: mongodb
+        image: mongo
+        command: mongod --noauth
+        ports:
+            - "27017:27017"
+            #Privatize MongoDB access to inter-container only
+        volumes: #Keeping the Data Persistent 
+            - appDB:/data/database
+        networks: 
+            - back-end-network
+volumes: #Create a Volume for DataBase
+    appDB:
+
+networks: 
+        back-end-network:
+            driver: bridge
+    

@@ -14,7 +14,7 @@ const connectEnsureLogin = require('connect-ensure-login');
 var passport = require('./config/passport');
 var util = require('./util');
 var express = require('express');
-
+var DATABASE_NAME;
 //require the http module
 // require the socket.io module & express
 var app = require('express')();
@@ -23,7 +23,11 @@ var io = require('socket.io')(http);
 io.set("transports", ["polling"]);
   
 // DB setting
-const db = require('./config/key').MongoURI;
+const db = 
+module.exports = {
+    MongoURI:'mongodb://' + DATABASE_NAME + '/VVE_DB'
+
+}
 const  Schema  =  mongoose.Schema;
 const  chatSchema  =  new Schema(
     {
@@ -39,7 +43,7 @@ const  chatSchema  =  new Schema(
     }
 });
 //Connect mongo
-mongoose.connect('mongodb://127.0.0.1:27017/VVE_DB', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect('mongodb://' + DATABASE_NAME + '/VVE_DB', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(function(){console.log('DB connected...');
 console.log(db.name); })
   .catch(err => console.log(err))
@@ -126,7 +130,6 @@ function createNameSpace(n){
 }
 	console.log("Creating namespace /chats" + roomIndex);
     chatDataModels.push(mongoose.model(rooms[roomIndex], chatSchema, rooms[roomIndex])); //Each chatroom needs its designated model pointing to the appropiate collection in the DB
-}
 createNameSpace('General-Chat');
 createNameSpace('Finance');
 createNameSpace('Solar-Panel');
@@ -142,7 +145,7 @@ app.get('/givemejquery', function(req, res){ //Providing the client with our jqu
 var port = 8000;
 const path = require('path')
 http.listen(port, function(){
-console.log('server on! http://localhost:'+port + "app.get(port) = " + app.get('port'));
+console.log('server on!' +port );
 
 });
 /* I made this function so unnecessary replication of data and extra computations are not done

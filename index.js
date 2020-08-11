@@ -14,7 +14,6 @@ const connectEnsureLogin = require('connect-ensure-login');
 var passport = require('./config/passport');
 var util = require('./util');
 var express = require('express');
-
 //require the http module
 // require the socket.io module & express
 var app = require('express')();
@@ -23,7 +22,6 @@ var io = require('socket.io')(http);
 io.set("transports", ["polling"]);
   
 // DB setting
-const db = require('./config/key').MongoURI;
 const  Schema  =  mongoose.Schema;
 const  chatSchema  =  new Schema(
     {
@@ -38,10 +36,10 @@ const  chatSchema  =  new Schema(
     type: Schema.Types.String,
     }
 });
-//Connect mongo
-mongoose.connect('mongodb://127.0.0.1:27017/VVE_DB', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+//Connect mongo 
+mongoose.connect('mongodb://' + process.env.DATABASE_NAME + '/VVE_DB', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(function(){console.log('DB connected...');
-console.log(db.name); })
+console.log('Connected to DB: ' + process.env.DATABASE_NAME); })
   .catch(err => console.log(err))
 
 //other setting  
@@ -142,7 +140,7 @@ app.get('/givemejquery', function(req, res){ //Providing the client with our jqu
 var port = 8000;
 const path = require('path')
 http.listen(port, function(){
-console.log('server on! http://localhost:'+port + "app.get(port) = " + app.get('port'));
+console.log('server on!' + port );
 
 });
 /* I made this function so unnecessary replication of data and extra computations are not done
