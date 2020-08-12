@@ -39,8 +39,7 @@ const  chatSchema  =  new Schema(
 //Connect mongo 
 mongoose.connect('mongodb://' + process.env.DATABASE_NAME + '/VVE_DB', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(function(){console.log('DB connected...');
-console.log('Connected to DB: ' + process.env.DATABASE_NAME); })
-  .catch(err => console.log(err))
+console.log('Connected to DB: ' + process.env.DATABASE_NAME);}).catch(err => console.log(err))
 
 //other setting  
 app.set('view engine', 'ejs');
