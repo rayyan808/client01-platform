@@ -45,6 +45,40 @@
         center:{lat:52.679713,lng:6.208649}
       }
       var map = new google.maps.Map(document.getElementById('map'), options);
+      //======================= static addition ===================//
+     var k = 0;
+      var LatLng = new google.maps.LatLng(parseFloat(52.5168),parseFloat(6.0830));
+      markers.push(new google.maps.Marker({
+            position : LatLng,
+            iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            map : map,
+            title : "VVE Head Office Zwolle"
+      }));
+      infowindows.push(new google.maps.InfoWindow({
+                    content: "Your Office Contact information here"//The VVE attributes are in a status object, which I'm converting to a string
+            }));
+      google.maps.event.addListener(markers[0], 'click', (function(marker, k) {
+      return function() {
+        infowindows[0].open(map, markers[0]);
+      }
+    })(markers[0], k));
+      var LatLng2 = new google.maps.LatLng(parseFloat(52.3667),parseFloat(4.8945));
+      markers.push(new google.maps.Marker({
+            position : LatLng2,
+            iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            map : map,
+            title : "VVE Head Office Amsterdam"
+      }));
+      infowindows.push(new google.maps.InfoWindow({
+                    content: "Your Office data here; Dynamically updated through database entries"//The VVE attributes are in a status object, which I'm converting to a string
+            }));
+            k++;
+      google.maps.event.addListener(markers[1], 'click', (function(marker, k) {
+      return function() {
+        infowindows[1].open(map, markers[1]);
+      }
+    })(markers[1], k));
+      //==========================================================//
       for(i = 0; i < geoArray.length; i++) {
           /*For every Apartment collection object recieved, push the data into the marker*/
           var LatLng = new google.maps.LatLng(parseFloat(geoArray[i].latitude),parseFloat(geoArray[i].longitude));

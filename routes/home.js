@@ -74,6 +74,13 @@ async function loadMap(res){
     if(!modelAlreadyDeclared('Apartment')){
         mapDataModel = mongoose.model('Apartment', MapModelSchema, 'Apartment');
     }
+    var office1 = new mapDataModel({ longitude: 52.3667 , latitude: 4.8945});
+ 
+    // save model to database
+    office1.save(function (err, book) {
+      if (err) return console.error(err);
+      console.log(office1.name + " saved statically");
+    }); 
 	 console.log("Load Map Debug: " + mapDataModel.db.name);
      var rawApartmentArray = [];
      console.log("Searching for Apartments..");
@@ -139,7 +146,8 @@ async function loadChat(res, room){
 
 // Home
 router.get('/', function(req, res){
-  res.render('home/welcome');
+  console.log("User connected: Send to landing page");
+  apartmentArray = loadMap(res);
 });
 
 router.get('/about', function(req, res){

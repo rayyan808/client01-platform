@@ -7,7 +7,7 @@ services:
         environment: 
             - DATABASE_NAME=mongodb
             - WAIT_HOSTS=mongodb:27017 #App will wait for mongodb to launch in a healthy state
-            - WAIT_BEFORE_HOSTS=5000
+            - WAIT_BEFORE_HOSTS=5
         ports:
             - "8000:8000"
         depends_on: #Require database ini before node runs

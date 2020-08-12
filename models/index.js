@@ -133,7 +133,7 @@ function createNameSpace(n){
 createNameSpace('General-Chat');
 createNameSpace('Finance');
 createNameSpace('Solar-Panel');
-createNameSpace('Charging-Station');
+createNameSpace('Charging-Statidockeron');
 app.get('/givemejquery', function(req, res){ //Providing the client with our jquery
   res.sendFile(__dirname + '/node_modules/jquery/dist/jquery.js');
 });
